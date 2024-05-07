@@ -1,0 +1,43 @@
+Разворачивание нового инстанса боевого контура Jira
+
+1.В боевой  Jire перейти в настройки (шестеренка) → Система → ИМПОРТ И ЭКСПОРТ → Бэкап системы
+2.На вкладке " Резервное копирование данных Jira" в поле с названием файла ввести осмысленное название для архива выгрузки бэкапа
+    - Файл резервной копии будет помещен здесь: /var/atlassian/application-data/jira/export
+3.Дождаться завершения бэкапа в архив и перенести на новый сервер.
+4. Скачать нужную версию Jira Software (https://www.atlassian.com/software/jira/update)
+5. На новом инстансе развернуть новый экземпляр Jira software через установщик
+6. chmod a+x atlassian-jira-software-9.12.1-x64.bin (Дать права на исполнение файла, если установочник, если нет, не забыть установить open-jre)
+7. sudo ./atlassian-jira-software-9.12.1-x64.bin (Запустить установочник)
+8. Выполнить установку Jira Software в стандартные каталоги (/opt/atlassian/jira и /var/atlassian/application-data/jira)
+9. Не запуская сервер Jira добавить строку
+ export JAVA_OPTS="-javaagent:/opt/atlassian/atlassian-agent/atlassian-agent.jar ${JAVA_OPTS}"
+в файлы /opt/atlassian/jira/bin/setenv.sh и /opt/atlassian/jira/bin/setenv32.sh
+10. Запустить Jira. Подключить новую БД. Активировать коммандой
+java -jar /opt/atlassian/atlassian-agent.jar -mail 'my@email.com' -n userName -o CompanyName -p jira -s XXXX-XXXX-XXXX-XXXX (XXXX-XXXX-XXXX-XXXX ID jira взять из страницы после указания БД и закинуть сгенерированный ключ в поле ввода)
+    - Не забыть закинуть файл atlassian-agent.jar на новый сервер и положить по пути /opt/atlassian/
+11. Зайти в настройки (шестеренка) → Система → ИМПОРТ И ЭКСПОРТ → Восстановление системы
+12. На вкладке "Восстановить данные Jira из резервной копии" в поле "Имя файла" вставить название выгруженного бэкапа
+    - Перед этим необходимо закинуть файл с бэкапом данных на новый сервер и положить по пути: /var/atlassian/application-data/jira/import
+13. Дождаться завершения восстановления. (Есть вероятность, что на 99% завершится ошибкой 500 без возможности перейти на главную страницу.)
+    - Останавливаем сервер Jira и запускаем снова, должна появится страница с приветствием об успешном обновлении и старте реиндекса, нужно дождаться завершения и можно зайти на главную страницу)
+----------------------------------
+SQL Update DB
+
+update gadgetuserpreference set userprefvalue = REPLACE(userprefvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where userprefvalue like '%jira.napoleonit.ru%';
+
+update remotelink set url = replace(url,'jira.napoleonit.ru','jira.itnap.ru') where url like '%jira.napoleonit.ru%';
+update remotelink set iconurl = replace(iconurl,'jira.napoleonit.ru','jira.itnap.ru') where iconurl like '%jira.napoleonit.ru%';
+
+update jiraissue set description = REPLACE(description, 'jira.napoleonit.ru', 'jira.itnap.ru') where description like '%jira.napoleonit.ru%';
+
+update jiraaction set actionbody = REPLACE(actionbody, 'jira.napoleonit.ru', 'jira.itnap.ru') where actiontype = 'comment' and actionbody like '%jira.napoleonit.ru%';
+
+update customfieldvalue set stringvalue = REPLACE(stringvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where stringvalue like '%jira.napoleonit.ru%';
+
+update customfieldvalue set textvalue = REPLACE(textvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where textvalue like '%jira.napoleonit.ru%';
+
+update "AO_550953_SHORTCUT" set "SHORTCUT_URL" = REPLACE("SHORTCUT_URL", 'jira.napoleonit.ru', 'jira.itnap.ru') where "SHORTCUT_URL" like '%jira.napoleonit.ru%';
+
+-------------------
+Для связи Jira и Confluence нужно сделать системный "Application name" и добавить ip - адрес конфли\жиры не забыть пароль от "Application name"
+В другом приложении Jira\Confluence перейти в User Directories и создать каталог используя данные выше.

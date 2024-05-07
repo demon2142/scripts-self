@@ -1,0 +1,99 @@
+wget atlassian confluence
+chmod +x atlassian-conf-ver.bin
+./atlassian-conf-ver.bin
+install..
+
+run - shutdown server
+copy id-server in /var/atlassian/application-data/confluence/confluence.cfg.xml
+and 2 files in /opt/atlassian/confluence/confluence/WEB-INF/lib
+com.atlassian.extras_atlassian-extras-decoder-v2-3.4.6.jar
+com.atlassian.extras_atlassian-extras-key-manager-3.4.6.jar
+
+copy local-pc
+run crack- patch files and generate lic id
+copy patched files back to server
+run server
+paste generated id serial in crack
+
+ ------------
+ install nginx
+ ==========
+ Включение ssl в server.xml (opt/atlassian/confluence/conf/)
+ #закоментить (server_8090.xml)
+ #заменить на (server_443_ssl.xml)
+
+
+ ------------
+ install dehydrated
+ ====
+ vim /etc/dehydrated/domains.txt > serv.ru
+ dehydrated --register --accept-terms
+ touch /etc/nginx/sites-enabled/site.ru
+##############################################
+ server {
+    server_name xx.ru www.xx.ru;
+    location ^~ /.well-known/acme-challenge {
+        alias /var/lib/dehydrated/acme-challenges;
+    }
+    location / {
+        return 301 https://$host$request_uri;
+    }
+###############################################
+nginx -t
+nginx -s reload
+
+dehydrated -c
+Если dehydrated отработает без ошибки, в /var/lib/dehydrated/certs появятся ключи и сертификаты.
+Теперь включаем HTTPS:
+    Добавляем в /etc/nginx/sites-enabled/xx.ru.conf:
+##############################################
+server {
+      listen 443 ssl;
+      server_name xx.ru www.xx.ru;
+
+      ssl_certificate     /var/lib/dehydrated/certs/xx.ru/fullchain.pem;
+      ssl_certificate_key /var/lib/dehydrated/certs/xx.ru/privkey.pem;
+}
+##############################################
+nginx -s reload
+Сертификаты выдаются на 90 суток.
+"dehydrated -c" без ключа "--force" не пытается продлевать сертификат, если он выдан менее 80 суток назад.
+Поэтому оптимально вызывать продление раз в неделю — т.е. с минимумом неудачных попыток, но с гарантированным попаданием в заключительный 10-дневный интервал.
+Для этого создаём файл /etc/cron.weekly/Dehydrated (и делаем его исполняемым через "chmod +x"):
+######
+#!/bin/sh
+
+dehydrated -c -g
+######
+Обратите внимание: при вызове через "cron" мы используем дополнительный ключ "-g", чтобы в случае ошибки dehydrated не прекратил работу, а продолжил обрабатывать следующие сертификаты.
+Дополнительно создаём /etc/dehydrated/hook.sh (и тоже делаем исполняемым через "chmod +x"), который вызывается из основного сценария на разных стадиях выполнения. В нашем случае он будет простейшим:
+##########
+#!/bin/sh
+
+test "$1" = "deploy_cert" || exit 0
+##########
+nginx -s reload
+Проверяем, что /etc/dehydrated/config или /etc/dehydrated/conf.d/*.sh содержит директиву "HOOK=/etc/dehydrated/hook.sh" — в некоторых дистрибутивах она отсутствует!
+==================================================
+Как и зачем использовать подтверждение через DNS вместо HTTP?
+Сайт или сервис может быть недоступен из внешнего мира (находиться в офисной локальной сети, приватном облаке и т.д), поэтому LetsEncrypt не сумеет обратиться к нему извне, чтобы проверить владельца.
+Либо по каким-то причинам мы вынуждены запускать клиентскую утилиту с другого компьютера.
+В этом случае LetsEncrypt позволяет подтверждать владение доменом через специальные DNS-записи.
+Для этого dehydrated должен запускаться с дополнительным ключом "-t dns-01".
+Сценарий hook.sh становится примерно таким:
+###############################################
+#!/bin/sh
+
+case "$1" in
+  "deploy_challenge")  printf "Please add to DNS:\n_acme-challenge.%s. %d in TXT \"%s\"\n" "${2}" "${TTL}" "${4}"
+                       read -p "Configure, then press Enter..." x  ;;
+
+  "clean_challenge" )  printf "Please delete from DNS:\n_acme-challenge.%s. %d in TXT \"%s\"\n" "${2}" "${TTL}" "${4}" ;;
+
+  "deploy_cert"     )  ;; # optional: /path/to/deploy_cert.sh "$@" ;;
+esac
+################################################
+
+ ------------
+Документация к Dehydrated содержит примеры автоматического создания-удаления DNS-записей через API различных DNS-провайдеров — Cloudflare, GoDaddy и т.д.
+https://github.com/lukas2511/dehydrated/wiki
