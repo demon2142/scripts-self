@@ -1,0 +1,18 @@
+update gadgetuserpreference set userprefvalue = REPLACE(userprefvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where userprefvalue like '%jira.napoleonit.ru%';
+
+
+update remotelink set url = replace(url,'jira.napoleonit.ru','jira.itnap.ru') where url like '%jira.napoleonit.ru%';
+
+update remotelink set iconurl = replace(iconurl,'jira.napoleonit.ru','jira.itnap.ru') where iconurl like '%jira.napoleonit.ru%';
+
+update jiraissue set description = REPLACE(description, 'jira.napoleonit.ru', 'jira.itnap.ru') where description like '%jira.napoleonit.ru%';
+---
+update jiraaction set actionbody = REPLACE(actionbody, 'jira.napoleonit.ru', 'jira.itnap.ru') where actiontype = 'comment' and actionbody like '%jira.napoleonit.ru%';
+
+update customfieldvalue set stringvalue = REPLACE(stringvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where stringvalue like '%jira.napoleonit.ru%';
+
+
+update customfieldvalue set textvalue = REPLACE(textvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where textvalue like '%jira.napoleonit.ru%';
+
+
+update "AO_550953_SHORTCUT" set "SHORTCUT_URL" = REPLACE("SHORTCUT_URL", 'jira.napoleonit.ru', 'jira.itnap.ru') where "SHORTCUT_URL" like '%jira.napoleonit.ru%';
