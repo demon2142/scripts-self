@@ -1,0 +1,5 @@
+curl -u d.kovalev:cMoAzckPPQmn -X GET -H "Content-Type: application/json" "https://example.atlassian.net/rest/api/2/user/search?username=%22%22" | jq '[.[] | {username: .name, email: .emailAddress}]'
+
+
+
+curl -u d.kovalev:cMoAzckPPQmn -X GET -H "Content-Type: application/json" "https://jira.napoleonit.ru/rest/api/2/user/search?username=%22%22" > jira-user
