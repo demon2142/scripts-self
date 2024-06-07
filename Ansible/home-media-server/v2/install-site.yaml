@@ -1,0 +1,98 @@
+---
+- hosts: proxmox
+  become: yes
+
+  vars:
+    qbittorrent_version: 4.5.2
+    homeassistant_version: 2023.5.6
+    kerberos_version: 2023.5.1
+    immich_version: 1.7.0
+    scrutiny_version: 0.9.0
+
+  tasks:
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - docker.io
+          - docker-compose
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/debian bullseye stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Create Docker network
+      docker_network:
+        name: proxmox_network
+
+    - name: Create qBittorrent container
+      docker_container:
+        name: qbittorrent
+        image: linuxserver/qbittorrent:{{ qbittorrent_version }}
+        network_mode: proxmox_network
+        volumes:
+          - /mnt/data/qbittorrent:/config
+          - /mnt/data/downloads:/downloads
+        ports:
+          - 8080:8080
+          - 6881:6881
+          - 6881:6881/udp
+
+    - name: Create Home Assistant container
+      docker_container:
+        name: homeassistant
+        image: ghcr.io/home-assistant/home-assistant:{{ homeassistant_version }}
+        network_mode: proxmox_network
+        volumes:
+          - /mnt/data/homeassistant:/config
+        ports:
+          - 8123:8123
+
+    - name: Create Kerberos.io container
+      docker_container:
+        name: kerberos
+        image: kerberos/kerberos:{{ kerberos_version }}
+        network_mode: proxmox_network
+        volumes:
+          - /mnt/data/kerberos:/app/data
+        ports:
+          - 7001:7001
+
+    - name: Create Immich container
+      docker_container:
+        name: immich
+        image: ghcr.io/immich-server/immich-server:{{ immich_version }}
+        network_mode: proxmox_network
+        volumes:
+          - /mnt/data/immich:/app/data
+        ports:
+          - 3000:3000
+          - 4000:4000
+
+    - name: Create Scrutiny container
+      docker_container:
+        name: scrutiny
+        image: jlesage/scrutiny:{{ scrutiny_version }}
+        network_mode: proxmox_network
+        volumes:
+          - /mnt/data/scrutiny:/config
+        ports:
+          - 5000:5000

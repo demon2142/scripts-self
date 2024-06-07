@@ -1,0 +1,7 @@
+all:
+  children:
+    proxmox:
+      hosts:
+        proxmox.example.com:
+          ansible_user: ansible
+          ansible_password: your_proxmox_password

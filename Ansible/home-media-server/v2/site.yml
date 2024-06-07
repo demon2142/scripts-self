@@ -1,0 +1,14 @@
+---
+- hosts: proxmox
+  tasks:
+    - name: Create Docker containers
+      docker_compose:
+        project_src: /path/to/docker-compose.yml
+        state: present
+        build: yes
+      services:
+        - qBittorrent
+        - Home Assistant
+        - Kerberos.io
+        - Immich
+        - Scrutiny

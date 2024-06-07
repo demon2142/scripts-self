@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .service {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .service img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+        .service h2 {
+            margin: 0;
+        }
+        .service p {
+            margin: 5px 0 0 0;
+        }
+        .service a {
+            display: block;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .service a:hover {
+            background-color: #e6e6e6;
+        }
+        .weather {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .weather h2 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Services</h1>
+        <div class="service">
+            <img src="qbittorrent.png" alt="qBittorrent">
+            <div>
+                <h2>qBittorrent</h2>
+                <p>Torrent client</p>
+                <a href="/qbittorrent">Access qBittorrent</a>
+            </div>
+        </div>
+        <div class="service">
+            <img src="homeassistant.png" alt="Home Assistant">
+            <div>
+                <h2>Home Assistant</h2>
+                <p>Home automation platform</p>
+                <a href="/homeassistant">Access Home Assistant</a>
+            </div>
+        </div>
+        <div class="service">
+            <img src="kerberos.png" alt="Kerberos.io">
+            <div>
+                <h2>Kerberos.io</h2>
+                <p>Video surveillance system</p>
+                <a href="/kerberos">Access Kerberos.io</a>
+            </div>
+        </div>
+        <div class="service">
+            <img src="immich.png" alt="Immich">
+            <div>
+                <h2>Immich</h2>
+                <p>Self-hosted photo and video backup</p>
+                <a href="/immich">Access Immich</a>
+            </div>
+        </div>
+        <div class="service">
+            <img src="scrutiny.png" alt="Scrutiny">
+            <div>
+                <h2>Scrutiny</h2>
+                <p>SSD health monitoring</p>
+                <a href="/scrutiny">Access Scrutiny</a>
+            </div>
+        </div>
+        <div class="weather">
+            <h2>Weather in Chelyabinsk</h2>
+            <p id="weather-info"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+---
+- name: Setup Home Media Server
+  hosts: localhost
+  become: yes
+
+  vars:
+    qbittorrent_config: /srv/qbittorrent/config
+    qbittorrent_downloads: /srv/qbittorrent/downloads
+    qbittorrent_watch: /srv/qbittorrent/watch
+    homeassistant_config: /srv/homeassistant/config
+    kerberos_config: /srv/kerberos/config
+    kerberos_recordings: /srv/kerberos/recordings
+    jellyfin_config: /srv/jellyfin/config
+    jellyfin_cache: /srv/jellyfin/cache
+    immich_data: /srv/immich/data
+    scrutiny_config: /srv/scrutiny/config
+    ansible_uid: 1000
+    ansible_gid: 1000
+
+  tasks:
+    - name: Ensure required directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+        mode: '0755'
+      loop:
+        - "{{ qbittorrent_config }}"
+        - "{{ qbittorrent_downloads }}"
+        - "{{ qbittorrent_watch }}"
+        - "{{ homeassistant_config }}"
+        - "{{ kerberos_config }}"
+        - "{{ kerberos_recordings }}"
+        - "{{ jellyfin_config }}"
+        - "{{ jellyfin_cache }}"
+        - "{{ immich_data }}"
+        - "{{ scrutiny_config }}"
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Create qBittorrent docker-compose file with VueTorrent
+      copy:
+        dest: /srv/qbittorrent/docker-compose.yml
+        content: |
+          version: '3.7'
+          services:
+            qbittorrent:
+              image: cr.hotio.dev/hotio/qbittorrent
+              container_name: qbittorrent
+              environment:
+                - PUID={{ ansible_uid }}
+                - PGID={{ ansible_gid }}
+                - TZ=Europe/Moscow
+                - WEBUI_PORT=8080
+                - WEBUI_VUETORRENT=true
+              volumes:
+                - {{ qbittorrent_config }}:/config
+                - {{ qbittorrent_downloads }}:/downloads
+                - {{ qbittorrent_watch }}:/watch
+              ports:
+                - 8080:8080
+                - 6881:6881
+                - 6881:6881/udp
+              restart: unless-stopped
+
+    - name: Create Home Assistant docker-compose file
+      copy:
+        dest: /srv/homeassistant/docker-compose.yml
+        content: |
+          version: '3.7'
+          services:
+            homeassistant:
+              image: homeassistant/home-assistant:stable
+              container_name: homeassistant
+              volumes:
+                - {{ homeassistant_config }}:/config
+              environment:
+                - TZ=Europe/Moscow
+              devices:
+                - /dev/ttyUSB0:/dev/ttyUSB0
+              restart: unless-stopped
+              network_mode: host
+
+    - name: Create Kerberos.io docker-compose file
+      copy:
+        dest: /srv/kerberos/docker-compose.yml
+        content: |
+          version: '3.7'
+          services:
+            kerberos:
+              image: kerberos/kerberos
+              container_name: kerberos
+              environment:
+                - PUID={{ ansible_uid }}
+                - PGID={{ ansible_gid }}
+                - TZ=Europe/Moscow
+              volumes:
+                - {{ kerberos_config }}:/config
+                - {{ kerberos_recordings }}:/recordings
+              ports:
+                - 8889:80
+              restart: unless-stopped
+
+    - name: Create Jellyfin docker-compose file
+      copy:
+        dest: /srv/jellyfin/docker-compose.yml
+        content: |
+          version: '3.7'
+          services:
+            jellyfin:
+              image: jellyfin/jellyfin
+              container_name: jellyfin
+              environment:
+                - PUID={{ ansible_uid }}
+                - PGID={{ ansible_gid }}
+                - TZ=Europe/Moscow
+              volumes:
+                - {{ jellyfin_config }}:/config
+                - {{ jellyfin_cache }}:/cache
+                - {{ qbittorrent_downloads }}:/media # assuming media files are downloaded by qbittorrent
+              ports:
+                - 8096:8096
+                - 8920:8920
+              restart: unless-stopped
+
+    - name: Create Immich docker-compose file
+      copy:
+        dest: /srv/immich/docker-compose.yml
+        content: |
+          version: '3.7'
+          services:
+            immich:
+              image: ghcr.io/alextran1502/immich
+              container_name: immich
+              environment:
+                - PUID={{ ansible_uid }}
+                - PGID={{ ansible_gid }}
+                - TZ=Europe/Moscow
+              volumes:
+                - {{ immich_data }}:/data
+              ports:
+                - 2283:2283
+              restart: unless-stopped
+
+    - name: Create Scrutiny docker-compose file
+      copy:
+        dest: /srv/scrutiny/docker-compose.yml
+        content: |
+          version: '3.7'
+          services:
+            scrutiny:
+              image: analogj/scrutiny
+              container_name: scrutiny
+              environment:
+                - PUID={{ ansible_uid }}
+                - PGID={{ ansible_gid }}
+                - TZ=Europe/Moscow
+              volumes:
+                - /var/run/docker.sock:/var/run/docker.sock
+                - {{ scrutiny_config }}:/config
+              ports:
+                - 8081:8080
+              restart: unless-stopped
+
+    - name: Start qBittorrent container
+      command: docker-compose up -d
+      args:
+        chdir: /srv/qbittorrent
+
+    - name: Start Home Assistant container
+      command: docker-compose up -d
+      args:
+        chdir: /srv/homeassistant
+
+    - name: Start Kerberos.io container
+      command: docker-compose up -d
+      args:
+        chdir: /srv/kerberos
+
+    - name: Start Jellyfin container
+      command: docker-compose up -d
+      args:
+        chdir: /srv/jellyfin
+
+    - name: Start Immich container
+      command: docker-compose up -d
+      args:
+        chdir: /srv/immich
+
+    - name: Start Scrutiny container
+      command: docker-compose up -d
+      args:
+        chdir: /srv/scrutiny
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Configure Nginx for reverse proxy
+      copy:
+        dest: /etc/nginx/sites-available/default
+        content: |
+          server {
+              listen 80 default_server;
+              listen [::]:80 default_server;
+
+              server_name _;
+
+              location / {
+                  root /var/www/html;
+                  index index.html;
+              }
+
+              location /qbittorrent/ {
+                  proxy_pass http://localhost:8080/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              location /homeassistant/ {
+                  proxy_pass http://localhost:8123/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              location /kerberos/ {
+                  proxy_pass http://localhost:8889/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              location /jellyfin/ {
+                  proxy_pass http://localhost:8096/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              location /immich/ {
+                  proxy_pass http://localhost:2283/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              location /scrutiny/ {
+                  proxy_pass http://localhost:8081/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set header X-Forwarded-Proto $scheme;
+              }
+          }
+
+    - name: Create HTML landing page with weather and CSS
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Home Media Server</title>
+              <style>
+                  body {
+                      font-family: Arial, sans-serif;
+                      background-color: #f0f0f0;
+                      color: #333;
+                      margin: 0;
+                      padding: 0;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 100vh;
+                      flex-direction: column;
+                  }
+                  h1 {
+                      color: #4CAF50;
+                  }
+                  ul {
+                      list-style-type: none;
+                      padding: 0;
+                  }
+                  li {
+                      margin: 10px 0;
+                  }
+                  a {
+                      text-decoration: none;
+                      color: #333;
+                      padding: 10px 20px;
+                      background-color: #ddd;
+                      border-radius: 5px;
+                      transition: background-color 0.3s;
+                  }
+                  a:hover {
+                      background-color: #ccc;
+                  }
+                  #weather {
+                      margin-top: 20px;
+                  }
+              </style>
+          </head>
+          <body>
+              <h1>Welcome to Your Home Media Server</h1>
+              <ul>
+                  <li><a href="/qbittorrent/">qBittorrent</a></li>
+                  <li><a href="/homeassistant/">Home Assistant</a></li>
+                  <li><a href="/kerberos/">Kerberos.io</a></li>
+                  <li><a href="/jellyfin/">Jellyfin</a></li>
+                  <li><a href="/immich/">Immich</a></li>
+                  <li><a href="/scrutiny/">Scrutiny</a></li>
+              </ul>
+              <div id="weather">
+                  <h2>Current Weather</h2>
+                  <p id="location"></p>
+                  <p id="temperature"></p>
+                  <p id="description"></p>
+              </div>
+              <script>
+                  async function fetchWeather() {
+                      try {
+                          let response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&appid=YOUR_API_KEY');
+                          let data = await response.json();
+                          document.getElementById('location').textContent = `Location: ${data.name}`;
+                          document.getElementById('temperature').textContent = `Temperature: ${data.main.temp}°C`;
+                          document.getElementById('description').textContent = `Weather: ${data.weather[0].description}`;
+                      } catch (error) {
+                          console.error('Error fetching weather data:', error);
+                      }
+                  }
+                  fetchWeather();
+              </script>
+          </body>
+          </html>
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

@@ -1,0 +1,58 @@
+---
+- hosts: proxmox
+  become: yes
+
+  vars:
+    qbittorrent_version: 4.5.2
+    homeassistant_version: 2023.5.6
+    kerberos_version: 2023.5.1
+    immich_version: 1.7.0
+    scrutiny_version: 0.9.0
+    zabbix_version: 6.2.6
+
+  tasks:
+    # ... (previous tasks)
+
+    - name: Install Zabbix
+      apt:
+        name:
+          - zabbix-server-mysql
+          - zabbix-frontend-php
+          - mysql-server
+        state: present
+
+    - name: Create Zabbix database
+      mysql_db:
+        name: zabbix
+        state: present
+
+    - name: Create Zabbix configuration
+      template:
+        src: zabbix.conf.j2
+        dest: /etc/zabbix/zabbix_server.conf
+
+    - name: Start Zabbix server
+      service:
+        name: zabbix-server
+        state: started
+        enabled: yes
+
+    - name: Create static services page
+      template:
+        src: services.html.j2
+        dest: /var/www/html/index.html
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Restart Zabbix
+      service:
+        name: zabbix-server
+        state: restarted
+    - name: Copy CSS and JavaScript files
+      copy:
+        src: files/
+        dest: /var/www/html/
