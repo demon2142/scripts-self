@@ -1,18 +1,45 @@
-update gadgetuserpreference set userprefvalue = REPLACE(userprefvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where userprefvalue like '%jira.napoleonit.ru%';
+DO $$
+DECLARE
+    old_url VARCHAR := 'jira.napoleonit.ru';
+    new_url VARCHAR := 'jira.itnap.dev';
+BEGIN
+    -- Update gadget user preferences
+    UPDATE gadgetuserpreference
+    SET userprefvalue = REPLACE(userprefvalue, old_url, new_url)
+    WHERE userprefvalue LIKE '%' || old_url || '%';
 
+    -- Update remote link URLs
+    UPDATE remotelink
+    SET url = REPLACE(url, old_url, new_url)
+    WHERE url LIKE '%' || old_url || '%';
 
-update remotelink set url = replace(url,'jira.napoleonit.ru','jira.itnap.ru') where url like '%jira.napoleonit.ru%';
+    -- Update remote link icon URLs
+    UPDATE remotelink
+    SET iconurl = REPLACE(iconurl, old_url, new_url)
+    WHERE iconurl LIKE '%' || old_url || '%';
 
-update remotelink set iconurl = replace(iconurl,'jira.napoleonit.ru','jira.itnap.ru') where iconurl like '%jira.napoleonit.ru%';
+    -- Update issue descriptions
+    UPDATE jiraissue
+    SET description = REPLACE(description, old_url, new_url)
+    WHERE description LIKE '%' || old_url || '%';
 
-update jiraissue set description = REPLACE(description, 'jira.napoleonit.ru', 'jira.itnap.ru') where description like '%jira.napoleonit.ru%';
----
-update jiraaction set actionbody = REPLACE(actionbody, 'jira.napoleonit.ru', 'jira.itnap.ru') where actiontype = 'comment' and actionbody like '%jira.napoleonit.ru%';
+    -- Update comments in issue actions
+    UPDATE jiraaction
+    SET actionbody = REPLACE(actionbody, old_url, new_url)
+    WHERE actiontype = 'comment' AND actionbody LIKE '%' || old_url || '%';
 
-update customfieldvalue set stringvalue = REPLACE(stringvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where stringvalue like '%jira.napoleonit.ru%';
+    -- Update custom field values (string)
+    UPDATE customfieldvalue
+    SET stringvalue = REPLACE(stringvalue, old_url, new_url)
+    WHERE stringvalue LIKE '%' || old_url || '%';
 
+    -- Update custom field values (text)
+    UPDATE customfieldvalue
+    SET textvalue = REPLACE(textvalue, old_url, new_url)
+    WHERE textvalue LIKE '%' || old_url || '%';
 
-update customfieldvalue set textvalue = REPLACE(textvalue, 'jira.napoleonit.ru', 'jira.itnap.ru') where textvalue like '%jira.napoleonit.ru%';
-
-
-update "AO_550953_SHORTCUT" set "SHORTCUT_URL" = REPLACE("SHORTCUT_URL", 'jira.napoleonit.ru', 'jira.itnap.ru') where "SHORTCUT_URL" like '%jira.napoleonit.ru%';
+    -- Update shortcuts in the AO_550953_SHORTCUT table
+    UPDATE "AO_550953_SHORTCUT"
+    SET "SHORTCUT_URL" = REPLACE("SHORTCUT_URL", old_url, new_url)
+    WHERE "SHORTCUT_URL" LIKE '%' || old_url || '%';
+END $$;

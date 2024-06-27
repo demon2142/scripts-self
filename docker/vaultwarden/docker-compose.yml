@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    environment:
+      - WEBSOCKET_ENABLED=true
+      - SIGNUPS_ALLOWED=false
+      - DOMAIN=http://localhost
+    volumes:
+      - vaultwarden-data:/data
+    ports:
+      - "8080:80"
+
+  web:
+    image: nginx:latest
+    container_name: web
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - NGINX_ENTRYPOINT_QUIET_LOGS=1
+    depends_on:
+      - vaultwarden
+
+volumes:
+  vaultwarden-data:
