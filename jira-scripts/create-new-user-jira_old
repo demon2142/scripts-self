@@ -1,0 +1,46 @@
+import com.atlassian.jira.bc.user.UserService
+import com.atlassian.jira.component.ComponentAccessor
+
+//логин
+def login_CF = ComponentAccessor.customFieldManager.getCustomFieldObject(11284) // поле "Login"
+def userName = issue.getCustomFieldValue(login_CF)
+
+//пароль
+def password_CF = ComponentAccessor.customFieldManager.getCustomFieldObject(11271) // поле "Password"
+def password = issue.getCustomFieldValue(password_CF)
+
+//почта
+def email_CF = ComponentAccessor.customFieldManager.getCustomFieldObject(10403) // поле "Рабочая почта"
+def emailAddress = issue.getCustomFieldValue(email_CF)
+
+//Имя + фамилия
+def displayName_CF = ComponentAccessor.customFieldManager.getCustomFieldObject(10400) // поле "ФИО транслитом"
+def displayName = issue.getCustomFieldValue(displayName_CF)
+
+def sendNotification = false
+
+def loggedInUser = ComponentAccessor.userManager.getUserByName('Bonaparte')
+def userService = ComponentAccessor.getComponent(UserService)
+
+def newCreateRequest = UserService.CreateUserRequest.withUserDetails(loggedInUser, userName, password, emailAddress, displayName)
+        .sendNotification(sendNotification)
+
+def createValidationResult = userService.validateCreateUser(newCreateRequest)
+assert createValidationResult.valid : createValidationResult.errorCollection
+
+userService.createUser(createValidationResult)
+
+def newUser = ComponentAccessor.userManager.getUserByName(userName)
+
+//выдаём группы
+def userUtil = ComponentAccessor.userUtil
+
+def group = ComponentAccessor.groupManager.getGroup('jira-software-users')
+userUtil.addUserToGroup(group, newUser)
+group = ComponentAccessor.groupManager.getGroup('Staff')
+userUtil.addUserToGroup(group, newUser)
+group = ComponentAccessor.groupManager.getGroup('confluence-users')
+userUtil.addUserToGroup(group, newUser)
+
+def commentBody = "[~${"${issue.reporter.name}"}]\n\n Login: ${userName} \n Mail: ${emailAddress} \n Pass: ${password}\n--------------------------------------------------------------------\nYandex mail: [https://mail.yandex.ru/]\nJira: [https://jira.napoleonit.ru/]\nConfluence: [https://confluence.napoleonit.ru/]\n--------------------------------------------------------------------\nTelegram: [https://desktop.telegram.org/]\n--------------------------------------------------------------------\nGitLab(только для разработчиков): gitlab.itnap.ru\nP.S. Авторизация в сервисы (кроме самой почты) происходит по логину. Не по почте.\n\n--------------------------------------------------------------------\n\nНе забудь зайти на почту, и принять приглашение в общий календарь встреч.\nЕсли приглашение не получено,  то оставь запрос:\n[https://jira.napoleonit.ru/servicedesk/customer/portal/3/group/11]"
+ComponentAccessor.commentManager.create(issue, loggedInUser, commentBody, true)

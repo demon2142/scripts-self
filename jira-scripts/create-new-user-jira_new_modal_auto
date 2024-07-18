@@ -1,0 +1,88 @@
+import com.atlassian.jira.bc.user.UserService
+import com.atlassian.jira.component.ComponentAccessor
+
+// Получаем значение из поля "ФИО транслитом"
+def displayName_CF = ComponentAccessor.getCustomFieldManager().getCustomFieldObject(10400) // поле "ФИО транслитом"
+def displayName = issue.getCustomFieldValue(displayName_CF)
+
+if (!displayName) {
+    log.error("Поле 'ФИО транслитом' пустое")
+    return
+}
+
+// Разбиваем ФИО на имя и фамилию
+def nameParts = displayName.split(" ")
+if (nameParts.size() < 2) {
+    log.error("Поле 'ФИО транслитом' не содержит достаточно данных для разбиения на имя и фамилию")
+    return
+}
+
+def firstName = nameParts[0].toLowerCase()
+def lastName = nameParts[1].toLowerCase()
+
+// Генерируем логин
+def userName = "${firstName.charAt(0)}.${lastName}"
+
+// Генерируем email
+def emailAddress = "${userName}@napoleonit.ru"
+
+// Пароль (используем фиксированный или генерируем)
+def password = "defaultPassword" // Замените на генерацию случайного пароля при необходимости
+
+def sendNotification = false
+
+def loggedInUser = ComponentAccessor.getUserManager().getUserByName('Bonaparte')
+def userService = ComponentAccessor.getComponent(UserService)
+
+// Создаем запрос на создание пользователя
+def newCreateRequest = UserService.CreateUserRequest.withUserDetails(loggedInUser, userName, password, emailAddress, displayName)
+    .sendNotification(sendNotification)
+
+// Валидируем запрос
+def createValidationResult = userService.validateCreateUser(newCreateRequest)
+assert createValidationResult.isValid() : createValidationResult.getErrorCollection()
+
+// Создаем пользователя
+def userResult = userService.createUser(createValidationResult)
+assert userResult : "Ошибка создания пользователя"
+
+// Получаем созданного пользователя
+def newUser = ComponentAccessor.getUserManager().getUserByName(userName)
+assert newUser : "Не удалось получить созданного пользователя"
+
+// Выдаем группы
+def userUtil = ComponentAccessor.getUserUtil()
+def groupManager = ComponentAccessor.getGroupManager()
+
+def addUserToGroup = { groupName ->
+    def group = groupManager.getGroup(groupName)
+    assert group : "Группа ${groupName} не найдена"
+    userUtil.addUserToGroup(group, newUser)
+}
+
+// Добавление пользователя в группы
+['jira-software-users', 'Staff', 'confluence-users'].each(addUserToGroup)
+
+// Создаем комментарий
+def commentBody = """[~${issue.reporter.name}]
+
+Login: ${userName}
+Mail: ${emailAddress}
+Pass: ${password}
+--------------------------------------------------------------------
+Yandex mail: [https://mail.yandex.ru/]
+Jira: [https://jira.napoleonit.ru/]
+Confluence: [https://confluence.napoleonit.ru/]
+--------------------------------------------------------------------
+Telegram: [https://desktop.telegram.org/]
+--------------------------------------------------------------------
+GitLab(только для разработчиков): gitlab.itnap.ru
+P.S. Авторизация в сервисы (кроме самой почты) происходит по логину. Не по почте.
+
+--------------------------------------------------------------------
+
+Не забудь зайти на почту, и принять приглашение в общий календарь встреч.
+Если приглашение не получено, то оставь запрос:
+[https://jira.napoleonit.ru/servicedesk/customer/portal/3/group/11]"""
+
+ComponentAccessor.getCommentManager().create(issue, loggedInUser, commentBody, true)
