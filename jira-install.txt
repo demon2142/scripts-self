@@ -10,7 +10,7 @@
 7. sudo ./atlassian-jira-software-9.12.1-x64.bin (Запустить установочник)
 8. Выполнить установку Jira Software в стандартные каталоги (/opt/atlassian/jira и /var/atlassian/application-data/jira)
 9. Не запуская сервер Jira добавить строку
- export JAVA_OPTS="-javaagent:/opt/atlassian/atlassian-agent/atlassian-agent.jar ${JAVA_OPTS}"
+ export JAVA_OPTS="-javaagent:/opt/atlassian/atlassian-agent.jar ${JAVA_OPTS}"
 в файлы /opt/atlassian/jira/bin/setenv.sh и /opt/atlassian/jira/bin/setenv32.sh
 10. Запустить Jira. Подключить новую БД. Активировать коммандой
 java -jar /opt/atlassian/atlassian-agent.jar -mail 'my@email.com' -n userName -o CompanyName -p jira -s XXXX-XXXX-XXXX-XXXX (XXXX-XXXX-XXXX-XXXX ID jira взять из страницы после указания БД и закинуть сгенерированный ключ в поле ввода)
@@ -41,3 +41,16 @@ update "AO_550953_SHORTCUT" set "SHORTCUT_URL" = REPLACE("SHORTCUT_URL", 'jira.n
 -------------------
 Для связи Jira и Confluence нужно сделать системный "Application name" и добавить ip - адрес конфли\жиры не забыть пароль от "Application name"
 В другом приложении Jira\Confluence перейти в User Directories и создать каталог используя данные выше.
+
+--------------------------------------------------------------
+Для подключения Confluence и Jira
+Создать ссылки приложений в jira
+Settings -> Applications -> Application links -> Create link
+- Confluence
+Settings ->
+
+Для добавления каталога пользователей Jira к Confluence
+1. В jira разрешить подключения по ip адресу confluence
+Settings -> Administration -> Jira user server -> Configure Other Applications
+1. Перейти в Администрирование Confluence
+2. Каталоги пользователей и добавить каталог (нужен пользователь в jira системный)
