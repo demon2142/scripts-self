@@ -1,0 +1,464 @@
+Зона: bonapartit.ru
+A-записи:
+  - bonapartit.ru -> 185.215.4.19
+  - www.bonapartit.ru -> 185.215.4.19
+
+Зона: centr-razrabotki.ru
+A-записи:
+  - centr-razrabotki.ru -> 185.215.4.19
+  - www.centr-razrabotki.ru -> 185.215.4.19
+
+Зона: coreplus.ru
+A-записи:
+  - coreplus.ru -> 99.83.190.102
+  - coreplus.ru -> 75.2.70.75
+
+Зона: futuretalents.academy
+A-записи:
+  - futuretalents.academy -> 99.83.190.102
+  - futuretalents.academy -> 75.2.70.75
+
+Зона: gigaschool.ru
+A-записи:
+  - ai-hackathon.gigaschool.ru -> 185.215.4.24
+  - chatgpt-hackathon.gigaschool.ru -> 185.215.4.24
+  - gigaschool.ru -> 185.215.4.24
+  - upgrade.gigaschool.ru -> 185.215.4.42
+  - webdev.gigaschool.ru -> 185.215.4.42
+  - www.ai-hackathon.gigaschool.ru -> 185.215.4.24
+  - www.chatgpt-hackathon.gigaschool.ru -> 185.215.4.24
+  - www.gigaschool.ru -> 185.215.4.24
+  - www.webdev.gigaschool.ru -> 185.215.4.42
+
+Зона: itnap.dev
+A-записи:
+  - abn.itnap.dev -> 37.228.113.211
+  - agentx.itnap.dev -> 51.250.7.179
+  - api.itnap.dev -> 84.201.167.223
+  - api.kb-monita.itnap.dev -> 84.201.184.125
+  - api.kb-monita.itnap.dev -> 84.201.189.211
+  - bio-stand.itnap.dev -> 84.201.128.120
+  - bristol.monita.itnap.dev -> 84.252.130.84
+  - *.clearml.itnap.dev -> 130.193.40.174
+  - clearml.itnap.dev -> 130.193.40.174
+  - confluence.itnap.dev -> 158.160.153.196
+  - *.cvat.itnap.dev -> 130.193.40.174
+  - cvat.itnap.dev -> 130.193.40.174
+  - *.dev.bristol.monita.itnap.dev -> 84.201.147.242
+  - *.dev.powerprice.itnap.dev -> 84.252.129.40
+  - dev.powerprice.itnap.dev -> 84.252.129.40
+  - forma.itnap.dev -> 141.8.194.149
+  - ftp.retail-kb.itnap.dev -> 178.154.247.5
+  - gpu.itnap.dev -> 89.22.184.13
+  - grafana-stack.itnap.dev -> 51.250.106.141
+  - gw1.kb-monita.itnap.dev -> 84.201.184.125
+  - gw.kb-monita.itnap.dev -> 84.201.189.211
+  - img.retail-kb.itnap.dev -> 178.154.247.215
+  - jira.itnap.dev -> 158.160.153.196
+  - kb-monita.itnap.dev -> 84.201.184.125
+  - kb-monita.itnap.dev -> 84.201.189.211
+  - minecraft.itnap.dev -> 130.193.51.18
+  - *.prod.bristol.monita.itnap.dev -> 84.252.130.84
+  - prod.bristol.monita.itnap.dev -> 84.252.130.84
+  - retail-kb.itnap.dev -> 130.193.62.20
+  - sentry.bristol.monita.itnap.dev -> 217.28.231.90
+  - sentry.kb.monita.itnap.dev -> 178.154.253.40
+  - sentry.powerprice.itnap.dev -> 178.154.227.112
+  - sgtp.infrdep.itnap.dev -> 193.32.219.86
+  - *.stage.bristol.monita.itnap.dev -> 84.201.147.242
+  - stage.bristol.monita.itnap.dev -> 84.201.147.242
+  - *.stage.kb.monita.itnap.dev -> 178.154.202.109
+  - stage.kb.monita.itnap.dev -> 178.154.202.109
+  - *.stage.powerprice.itnap.dev -> 130.193.37.142
+  - stage.powerprice.itnap.dev -> 130.193.37.142
+  - storage.retail-kb.itnap.dev -> 178.154.247.5
+  - *.test.crossplane.itnap.dev -> 158.160.25.120
+  - test.retail-kb.itnap.dev -> 178.154.230.230
+  - *.vacore.itnap.dev -> 51.250.92.65
+  - vacore.itnap.dev -> 51.250.92.65
+
+Зона: itnap.ru
+A-записи:
+  - 001.itnap.ru -> 194.58.115.3
+  - 00.itnap.ru -> 194.58.115.3
+  - 00.itnap.ru -> 83.142.166.49
+  - 1sellser.itnap.ru -> 185.26.97.29
+  - admin.dev.equality.itnap.ru -> 178.154.200.173
+  - ai-kb.itnap.ru -> 158.160.36.181
+  - airflow.bristol.monita.itnap.ru -> 84.201.133.252
+  - airflow.gp.itnap.ru -> 158.160.60.230
+  - airflow.monita.itnap.ru -> 84.201.143.114
+  - airflow-test.kb.monita.itnap.ru -> 178.154.225.67
+  - amocrm-proxy.itnap.ru -> 51.250.6.19
+  - android.yamaha.itnap.ru -> 185.26.97.29
+  - api.course.schoolplatform.itnap.ru -> 51.250.92.170
+  - api.dev.equality.itnap.ru -> 178.154.200.173
+  - api.dev.merchandising.itnap.ru -> 178.154.241.132
+  - api.dev.pivoman.itnap.ru -> 178.154.253.88
+  - api.dev.schoolplatform.itnap.ru -> 178.154.202.128
+  - api.el.dev.itnap.ru -> 84.252.128.248
+  - archive12.itnap.ru -> 185.26.97.29
+  - auth.dev.equality.itnap.ru -> 178.154.200.173
+  - *.bastion.pi.itnap.ru -> 68.183.242.102
+  - bot.pi.itnap.ru -> 68.183.242.102
+  - bot.rive-gauche.itnap.ru -> 130.193.38.114
+  - bristol.monita.itnap.ru -> 84.252.130.84
+  - cadvisor.pi-1.pi.itnap.ru -> 78.155.223.108
+  - chizhik.powerprice.itnap.ru -> 158.160.41.91
+  - cis.dev.trumpline.itnap.ru -> 84.201.146.112
+  - clear-jobs.rolf.itnap.ru -> 185.30.18.102
+  - *.clearml.itnap.ru -> 62.84.124.12
+  - clearml.itnap.ru -> 62.84.124.12
+  - confluence.itnap.ru -> 158.160.153.196
+  - course.schoolplatform.itnap.ru -> 51.250.92.170
+  - courses.itnap.ru -> 104.19.241.93
+  - crowd.itnap.ru -> 158.160.153.196
+  - crystal.itnap.ru -> 185.26.97.29
+  - crystall-site.itnap.ru -> 194.58.115.3
+  - cvat.cv.itnap.ru -> 158.160.61.129
+  - *.cvat.itnap.ru -> 62.84.124.12
+  - cvat.itnap.ru -> 62.84.124.12
+  - *.cvdstand.itnap.ru -> 51.250.14.30
+  - cvdstand.itnap.ru -> 51.250.14.30
+  - demo-booth.itnap.ru -> 84.252.139.150
+  - demopanel-post.itnap.ru -> 185.26.97.29
+  - *.demo.powerprice.itnap.ru -> 130.193.51.17
+  - demo.powerprice.itnap.ru -> 130.193.51.17
+  - *.demo.pp.itnap.ru -> 158.160.118.173
+  - demo.pp.itnap.ru -> 158.160.118.173
+  - demo.publisher.itnap.ru -> 194.58.115.3
+  - dev.api.cvdp.itnap.ru -> 51.250.78.182
+  - dev.api.uvelka.itnap.ru -> 62.84.118.58
+  - *.dev.bristol.monita.itnap.ru -> 84.201.147.242
+  - dev.cvdp.itnap.ru -> 51.250.78.182
+  - dev.equality.itnap.ru -> 178.154.200.173
+  - *.dev-face-search.itnap.ru -> 158.160.33.77
+  - dev-face-search.itnap.ru -> 158.160.33.77
+  - dev.first-line.itnap.ru -> 62.84.118.166
+  - dev.grafana.cvdp.itnap.ru -> 51.250.78.182
+  - dev.lazarus.itnap.ru -> 62.84.115.28
+  - *.dev.lenta.monitoring-tool.itnap.ru -> 51.250.40.201
+  - dev.lenta.monitoring-tool.itnap.ru -> 51.250.40.201
+  - dev-marking.cv.itnap.ru -> 84.201.160.29
+  - dev.merchandising.itnap.ru -> 178.154.241.132
+  - dev.monitoring.itnap.ru -> 51.250.74.228
+  - *.dev.pi.itnap.ru -> 68.183.243.21
+  - dev.pi.itnap.ru -> 92.53.81.138
+  - dev.pivoman.itnap.ru -> 178.154.253.88
+  - *.dev.powerprice.itnap.ru -> 84.252.129.40
+  - dev.powerprice.itnap.ru -> 84.252.129.40
+  - dev.rive-gauche.itnap.ru -> 51.250.13.145
+  - dev.schoolplatform.itnap.ru -> 178.154.202.128
+  - dev.trumpline.itnap.ru -> 84.201.146.112
+  - dev.uvelka.itnap.ru -> 62.84.118.58
+  - dev.zbs-market.itnap.ru -> 51.250.5.188
+  - docs.gitlab.itnap.ru -> 84.201.165.130
+  - docs.pi.itnap.ru -> 78.155.223.109
+  - el.dev.itnap.ru -> 84.252.128.248
+  - el.portainer.dev.itnap.ru -> 84.252.128.248
+  - enroll.hetzner-defguard.itnap.ru -> 144.76.222.187
+  - *.face-search.itnap.ru -> 62.152.38.129
+  - face-search.itnap.ru -> 62.152.38.129
+  - fig.itnap.ru -> 194.58.115.3
+  - flower.demo.az.gp.itnap.ru -> 51.250.92.204
+  - flower.dev.az.gp.itnap.ru -> 51.250.65.98
+  - foto-app.itnap.ru -> 185.26.97.29
+  - front.stage.promoloko.itnap.ru -> 84.201.173.48
+  - front.test.promoloko.itnap.ru -> 84.201.157.112
+  - ftp.retail-kb.itnap.ru -> 178.154.247.5
+  - gagarinpark0.itnap.ru -> 185.26.97.29
+  - gagarinpark.itnap.ru -> 185.26.97.29
+  - ghost.och.itnap.ru -> 34.241.49.116
+  - gitlab.itnap.ru -> 84.201.165.130
+  - gp3.itnap.ru -> 130.193.34.164
+  - gpu.itnap.ru -> 89.22.184.13
+  - gradusnik.itnap.ru -> 185.26.97.29
+  - grafana.cvdp.itnap.ru -> 62.84.116.130
+  - grafana.pi.itnap.ru -> 68.183.242.102
+  - grafana.uvelka.itnap.ru -> 51.250.6.86
+  - hetzner-defguard.itnap.ru -> 144.76.222.187
+  - hetzner-wg.itnap.ru -> 144.76.222.187
+  - img-geo-pro.itnap.ru -> 130.193.59.126
+
+Зона: kb-monita.ru
+A-записи:
+  - airflow.kb-monita.ru -> 178.154.207.202
+  - api-dev-marking.kb-monita.ru -> 178.154.252.51
+  - api.kb-monita.ru -> 178.154.225.67
+  - api-stage-marking.kb-monita.ru -> 178.154.252.51
+  - app2.kb-monita.ru -> 84.38.186.230
+  - app.kb-monita.ru -> 78.155.192.182
+  - ci.kb-monita.ru -> 194.58.100.204
+  - cv.kb-monita.ru -> 78.155.192.180
+  - cv-monitoring.kb-monita.ru -> 84.201.138.156
+  - db1.kb-monita.ru -> 95.213.219.84
+  - db2.kb-monita.ru -> 95.213.168.131
+  - db3.kb-monita.ru -> 95.213.176.204
+  - db4.kb-monita.ru -> 92.53.81.139
+  - db5.kb-monita.ru -> 78.155.192.181
+  - db6.kb-monita.ru -> 37.228.112.122
+  - ddos.kb-monita.ru -> 95.213.168.130
+  - ddos.kb-monita.ru -> 95.213.219.85
+  - dev-automatching.kb-monita.ru -> 178.154.252.51
+  - dev-marking.kb-monita.ru -> 178.154.252.51
+  - elastic-stack.kb-monita.ru -> 84.201.152.86
+  - fs1.kb-monita.ru -> 78.155.223.106
+  - fs2.kb-monita.ru -> 95.213.176.203
+  - fs3.kb-monita.ru -> 95.213.168.132
+  - gw1.kb-monita.ru -> 95.213.168.130
+  - gw.kb-monita.ru -> 95.213.219.85
+  - ip1.kb-monita.ru -> 95.213.255.171
+  - ip2.kb-monita.ru -> 95.213.255.172
+  - kb-images.kb-monita.ru -> 185.26.97.29
+  - kbimages.kb-monita.ru -> 185.26.97.29
+  - kb-monita.ru -> 178.154.225.67
+  - monitoring.kb-monita.ru -> 84.201.152.226
+  - node01.kb-monita.ru -> 95.213.219.82
+  - node02.kb-monita.ru -> 95.213.219.83
+  - node03.kb-monita.ru -> 95.213.168.133
+  - node04.kb-monita.ru -> 95.213.168.134
+  - node05.kb-monita.ru -> 95.213.176.205
+  - node06.kb-monita.ru -> 92.53.81.140
+  - node07.kb-monita.ru -> 92.53.81.141
+  - node08.kb-monita.ru -> 95.213.176.206
+  - photos.kb-monita.ru -> 88.212.207.220
+  - prod-db-updater.kb-monita.ru -> 84.201.160.253
+  - prod.kb-monita.ru -> 84.252.129.213
+  - rormail.kb-monita.ru -> 88.212.207.220
+  - stage-db-updater.kb-monita.ru -> 84.201.152.86
+  - stage.kb-monita.ru -> 178.154.252.51
+  - stage-marking.kb-monita.ru -> 178.154.252.51
+  - staging-automatching.kb-monita.ru -> 178.154.252.51
+  - *.test.kb-monita.ru -> 178.154.202.109
+  - test.kb-monita.ru -> 178.154.202.109
+
+Зона: monitaproject.ru
+A-записи:
+  - api.monitaproject.ru -> 178.154.225.67
+  - img.monitaproject.ru -> 51.250.9.184
+  - monitaproject.ru -> 178.154.225.67
+  - *.test.monitaproject.ru -> 178.154.202.109
+  - test.monitaproject.ru -> 178.154.202.109
+
+Зона: napoleongroup.ru
+A-записи:
+  - napoleongroup.ru -> 185.215.4.19
+  - www.napoleongroup.ru -> 185.215.4.19
+
+Зона: napoleonit.com
+A-записи:
+  - api-newsfeed.napoleonit.com -> 78.155.192.178
+  - ar.napoleonit.com -> 141.8.194.149
+  - blockchain.napoleonit.com -> 89.223.24.246
+  - controlpublisher.napoleonit.com -> 185.26.97.29
+  - dev.napoleonit.com -> 85.192.33.140
+  - dev-vision.napoleonit.com -> 89.208.209.204
+  - ed.napoleonit.com -> 90.156.201.113
+  - ed.napoleonit.com -> 90.156.201.105
+  - ed.napoleonit.com -> 90.156.201.90
+  - ed.napoleonit.com -> 90.156.201.87
+  - hiring.napoleonit.com -> 84.201.135.18
+  - kk-test.napoleonit.com -> 90.156.201.113
+  - kk-test.napoleonit.com -> 90.156.201.105
+  - kk-test.napoleonit.com -> 90.156.201.90
+  - kk-test.napoleonit.com -> 90.156.201.87
+  - managerpublisher.napoleonit.com -> 185.26.97.29
+  - media.napoleonit.com -> 90.156.201.113
+  - media.napoleonit.com -> 90.156.201.105
+  - media.napoleonit.com -> 90.156.201.90
+  - media.napoleonit.com -> 90.156.201.87
+  - napoleonit.com -> 75.2.70.75
+  - napoleonit.com -> 99.83.190.102
+  - *.newsfeed-renderer.napoleonit.com -> 78.155.192.178
+  - newsfeed-renderer.napoleonit.com -> 78.155.192.178
+  - panel-newsfeed.napoleonit.com -> 78.155.192.178
+  - partners.napoleonit.com -> 141.8.194.149
+  - rezerv.controlpublisher.napoleonit.com -> 194.58.115.3
+  - rezervcontrolpublisher.napoleonit.com -> 194.58.115.3
+  - s001.napoleonit.com -> 185.26.97.29
+  - test-controlpublisher.napoleonit.com -> 185.26.97.29
+  - vision.napoleonit.com -> 141.8.194.149
+  - webmail.napoleonit.com -> 217.16.16.140
+  - wp-newsfeed.napoleonit.com -> 78.155.192.178
+  - www.ar.napoleonit.com -> 141.8.194.149
+  - www.dev-vision.napoleonit.com -> 89.208.209.204
+  - www.ed.napoleonit.com -> 90.156.201.113
+  - www.ed.napoleonit.com -> 90.156.201.105
+  - www.ed.napoleonit.com -> 90.156.201.90
+  - www.ed.napoleonit.com -> 90.156.201.87
+  - www.kk-test.napoleonit.com -> 90.156.201.113
+  - www.kk-test.napoleonit.com -> 90.156.201.105
+  - www.kk-test.napoleonit.com -> 90.156.201.90
+  - www.kk-test.napoleonit.com -> 90.156.201.87
+  - www.media.napoleonit.com -> 90.156.201.113
+  - www.media.napoleonit.com -> 90.156.201.105
+  - www.media.napoleonit.com -> 90.156.201.90
+  - www.media.napoleonit.com -> 90.156.201.87
+  - www.partners.napoleonit.com -> 141.8.194.149
+  - www.publisher.napoleonit.com -> 141.8.194.149
+  - www.vision.napoleonit.com -> 141.8.194.149
+
+Зона: napoleon-it.ru
+A-записи:
+  - napoleon-it.ru -> 158.160.153.196
+
+Зона: napoleonit.ru
+A-записи:
+  - alertmanager.napoleonit.ru -> 84.201.142.139
+  - alisa.napoleonit.ru -> 78.155.223.110
+  - analytics.napoleonit.ru -> 54.194.41.141
+  - api.cv.napoleonit.ru -> 62.84.116.130
+  - api-newsfeed.napoleonit.ru -> 78.155.192.178
+  - api.reviews.napoleonit.ru -> 158.160.1.141
+  - app.napoleonit.ru -> 78.155.223.107
+  - bestaddress.napoleonit.ru -> 141.8.194.149
+  - bpkom.agentx.napoleonit.ru -> 37.228.113.211
+  - career.napoleonit.ru -> 141.8.192.88
+  - chartmuseum.napoleonit.ru -> 85.192.33.140
+  - chat-bot.napoleonit.ru -> 78.155.223.106
+  - confluence.napoleonit.ru -> 158.160.153.196
+  - contact.napoleonit.ru -> 185.215.4.14
+  - control.napoleonit.ru -> 90.156.201.82
+  - control.napoleonit.ru -> 90.156.201.77
+  - control.napoleonit.ru -> 90.156.201.22
+  - control.napoleonit.ru -> 90.156.201.17
+  - cristall.napoleonit.ru -> 194.58.115.3
+  - csu.napoleonit.ru -> 141.8.194.149
+  - cv.napoleonit.ru -> 62.84.116.130
+  - demo.agentx.napoleonit.ru -> 37.228.113.211
+  - demopanel.napoleonit.ru -> 185.26.97.29
+  - dev.api.reviews.napoleonit.ru -> 158.160.1.141
+  - devopssa.napoleonit.ru -> 178.154.228.235
+  - dev.reviews.napoleonit.ru -> 158.160.1.141
+  - dev-shop.napoleonit.ru -> 89.208.209.204
+  - event.napoleonit.ru -> 90.156.201.82
+  - event.napoleonit.ru -> 90.156.201.77
+  - event.napoleonit.ru -> 90.156.201.22
+  - event.napoleonit.ru -> 90.156.201.17
+  - files.napoleonit.ru -> 90.156.201.82
+  - files.napoleonit.ru -> 90.156.201.77
+  - files.napoleonit.ru -> 90.156.201.22
+  - files.napoleonit.ru -> 90.156.201.17
+  - fortest.napoleonit.ru -> 90.156.201.82
+  - fortest.napoleonit.ru -> 90.156.201.77
+  - fortest.napoleonit.ru -> 90.156.201.22
+  - fortest.napoleonit.ru -> 90.156.201.17
+  - front.napoleonit.ru -> 141.8.194.149
+  - geopro.napoleonit.ru -> 185.195.26.167
+  - gitlab-runner.napoleonit.ru -> 95.213.164.165
+  - grafana.chat-bot.napoleonit.ru -> 78.155.223.106
+  - grafana.napoleonit.ru -> 84.201.142.139
+  - health.napoleonit.ru -> 188.93.23.2
+  - hello.napoleonit.ru -> 35.228.245.6
+  - helpdesk.napoleonit.ru -> 52.174.181.8
+  - *.internal.napoleonit.ru -> 158.160.153.196
+  - ipa-master4.napoleonit.ru -> 51.250.72.199
+  - ipa-master.napoleonit.ru -> 130.193.55.59
+  - ipa-master-old.napoleonit.ru -> 130.193.55.59
+  - ipa.napoleonit.ru -> 130.193.53.244
+  - ipa-old.napoleonit.ru -> 130.193.53.244
+  - ipa-replica.napoleonit.ru -> 85.192.33.72
+  - jira.napoleonit.ru -> 158.160.153.196
+  - junior.napoleonit.ru -> 185.215.4.10
+  - karma.napoleonit.ru -> 85.192.34.160
+  - kb-test.napoleonit.ru -> 95.163.182.145
+  - managerdemopanel.napoleonit.ru -> 185.26.97.29
+  - marketing.napoleonit.ru -> 185.165.123.36
+  - media.napoleonit.ru -> 89.208.209.204
+  - ml.napoleonit.ru -> 185.215.4.10
+  - mobileapi-ssl.napoleonit.ru -> 185.26.97.29
+  - monitoring.napoleonit.ru -> 85.192.33.118
+  - monitor.napoleonit.ru -> 84.201.146.232
+  - mx.napoleonit.ru -> 83.222.23.178
+  - neva.agentx.napoleonit.ru -> 37.228.113.211
+  - office.napoleonit.ru -> 87.249.217.42
+  - o.napoleonit.ru -> 78.155.223.107
+  - online.napoleonit.ru -> 141.8.194.149
+  - opendj.napoleonit.ru -> 158.160.153.196
+  - otzyvy.napoleonit.ru -> 54.194.41.141
+  - panel-newsfeed.napoleonit.ru -> 78.155.192.178
+  - partners.napoleonit.ru -> 141.8.194.149
+  - pmds.napoleonit.ru -> 141.8.192.88
+  - pm.napoleonit.ru -> 141.8.194.149
+  - pop.napoleonit.ru -> 83.222.23.140
+  - portainer.napoleonit.ru -> 85.192.33.140
+  - prometheus.chat-bot.napoleonit.ru -> 78.155.223.106
+  - prometheus.napoleonit.ru -> 84.201.142.139
+  - publisher.napoleonit.ru -> 141.8.192.88
+  - qa.napoleonit.ru -> 141.8.194.149
+  - rbk.napoleonit.ru -> 194.58.115.3
+  - recruiting.napoleonit.ru -> 54.194.41.141
+  - redoc.napoleonit.ru -> 85.192.33.140
+  - register.napoleonit.ru -> 185.26.97.29
+  - ren-cosm.agentx.napoleonit.ru -> 37.228.113.211
+  - retail.napoleonit.ru -> 141.8.194.149
+  - reviews.napoleonit.ru -> 158.160.1.141
+  - rocketchat.napoleonit.ru -> 84.201.167.223
+  - rocket.napoleonit.ru -> 85.192.34.11
+  - samba.napoleonit.ru -> 87.249.217.42
+  - school.napoleonit.ru -> 185.215.4.24
+  - selfcheckout.napoleonit.ru -> 89.22.184.13
+  - shop.napoleonit.ru -> 141.8.194.149
+  - sign.napoleonit.ru -> 51.250.36.71
+  - smtp.napoleonit.ru -> 83.222.23.168
+  - support.napoleonit.ru -> 178.154.228.235
+  - teampass.napoleonit.ru -> 95.163.251.229
+  - test.agentx.napoleonit.ru -> 37.228.113.212
+
+Зона: napoleonit.team
+  Нет A-записей
+
+Зона: napsy.io
+A-записи:
+  - *.app.napsy.io -> 84.201.174.70
+  - app.napsy.io -> 84.201.174.70
+  - mx.napsy.io -> 83.222.23.178
+  - *.napsy.io -> 212.193.49.79
+  - napsy.io -> 185.215.4.36
+  - www.napsy.io -> 185.215.4.36
+
+Зона: powerprice.io
+A-записи:
+  - *.bkk.powerprice.io -> 158.160.93.236
+  - bkk.powerprice.io -> 158.160.93.236
+  - cv-worker-demo.powerprice.io -> 158.160.110.72
+  - cv-worker-shelf-demo.powerprice.io -> 178.154.229.67
+  - *.demo.powerprice.io -> 130.193.51.17
+  - demo.powerprice.io -> 130.193.51.17
+  - *.dev.chizik.powerprice.io -> 51.250.36.195
+  - dev.chizik.powerprice.io -> 51.250.36.195
+  - *.dev.demo.powerprice.io -> 51.250.38.168
+  - dev.demo.powerprice.io -> 51.250.38.168
+  - *.dev.powerprice.io -> 158.160.136.29
+  - dev.powerprice.io -> 158.160.136.29
+  - *.dev.rigla.powerprice.io -> 158.160.136.21
+  - dev.rigla.powerprice.io -> 158.160.136.21
+  - *.powerprice.io -> 84.201.134.116
+  - powerprice.io -> 51.250.36.71
+  - *.rigla.powerprice.io -> 158.160.153.154
+  - rigla.powerprice.io -> 158.160.153.154
+  - sentry.powerprice.io -> 178.154.227.112
+  - www.powerprice.io -> 141.8.192.88
+
+Зона: powerpriceit.ru
+A-записи:
+  - powerpriceit.ru -> 185.215.4.19
+  - www.powerpriceit.ru -> 185.215.4.19
+
+Зона: power-price.ru
+A-записи:
+  - contact.power-price.ru -> 185.215.4.24
+  - power-price.ru -> 51.250.36.71
+  - www.contact.power-price.ru -> 185.215.4.24
+  - www.power-price.ru -> 51.250.36.71
+
+Зона: talentservice.io
+  Нет A-записей
+
+Зона: willforcharity.ru
+A-записи:
+  - willforcharity.ru -> 104.19.241.93
+  - willforcharity.ru -> 104.19.240.93
+  - www.willforcharity.ru -> 104.19.241.93
+  - www.willforcharity.ru -> 104.19.240.93
+
