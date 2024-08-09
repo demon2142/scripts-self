@@ -2,22 +2,14 @@ import requests
 import json
 
 # Настройки
-API_TOKEN = '5jYrDJbwtaYaSMTX1RCbd5u0Ew7x-FON4i9UIXRa'  # Замените на ваш API токен
+API_TOKEN = "5jYrDJbwtaYaSMTX1RCbd5u0Ew7x-FON4i9UIXRa"  # Замените на ваш API токен
 API_EMAIL = 'd.kovalev@napoleonit.ru'  # Замените на ваш email
 PROMETHEUS_FILE = 'targets.json'  # Путь к файлу конфигурации Prometheus
 
-# Проверка на корректность токена и email
-try:
-    API_TOKEN.encode('latin-1')
-    API_EMAIL.encode('latin-1')
-except UnicodeEncodeError as e:
-    print(f"Ошибка кодирования токена или email: {e}")
-    exit(1)
-
-# Заголовки для авторизации
+# Заголовки для авторизации с кодировкой utf-8
 headers = {
-    "Authorization": f"Bearer {API_TOKEN}",
-    "Content-Type": "application/json"
+    "Authorization": f"Bearer {API_TOKEN}".encode('utf-8'),
+    "Content-Type": "application/json".encode('utf-8')
 }
 
 base_url = "https://api.cloudflare.com/client/v4"
@@ -25,14 +17,14 @@ base_url = "https://api.cloudflare.com/client/v4"
 # Функция для получения всех зон
 def get_zones():
     url = f"{base_url}/zones"
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers={key.decode('utf-8'): value.decode('utf-8') for key, value in headers.items()})
     response.raise_for_status()
     return response.json().get('result', [])
 
 # Функция для получения A-записей для определенной зоны
 def get_a_records(zone_id):
     url = f"{base_url}/zones/{zone_id}/dns_records?type=A"
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers={key.decode('utf-8'): value.decode('utf-8') for key, value in headers.items()})
     response.raise_for_status()
     return response.json().get('result', [])
 
